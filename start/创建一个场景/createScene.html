@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>My first three.js app</title>
+        <style>
+            body {
+                margin: 0;
+            }
+            canvas {
+                width: 100%;
+                height: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <script src="../js/three.js"></script>
+        <script>
+            // 创建场景
+            var scene = new THREE.Scene();
+            // 创建相机,四个参数分别为 视野角度 长宽比 近截面 远截面
+            var camera = new THREE.PerspectiveCamera(
+                75,
+                window.innerWidth / window.innerHeight,
+                0.1,
+                1000
+            );
+            // 渲染器
+            var renderer = new THREE.WebGLRenderer();
+            // 设置渲染器的尺寸
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            // 将canvas添加到dom里面
+            document.body.appendChild(renderer.domElement);
+            // 创建一个立方体
+            var geometry = new THREE.BoxGeometry(1, 1, 1);
+            // 给立方体上颜色
+            var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+            // 设置网格
+            var cube = new THREE.Mesh(geometry, material);
+            // 将物体添加到(0,0,0)坐标
+            scene.add(cube);
+            // 此时,摄像机和立方体彼此在一起,为了防止这种情况发生,我们要将摄像机稍微向外移动一些。
+            camera.position.z = 2;
+            // 渲染场景,并让立方体动起来
+            function animate() {
+                cube.rotation.x += 0.01;
+                cube.rotation.y += 0.01;
+                requestAnimationFrame(animate);
+                renderer.render(scene, camera);
+            }
+            animate();
+        </script>
+    </body>
+</html>
