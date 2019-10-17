@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>My first three.js app</title>
+        <style>
+            body {
+                margin: 0;
+            }
+            canvas {
+                width: 100%;
+                height: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <script src="../js/three.js"></script>
+        <script>
+            // 渲染器
+            var renderer = new THREE.WebGLRenderer();
+            // 设置渲染器尺寸
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            // 把渲染器添加到body
+            document.body.appendChild(renderer.domElement);
+            // 相机,参数是视野角度 长宽比 近截面 远截面
+            var camera = new THREE.PerspectiveCamera(
+                45,
+                window.innerWidth / window.innerHeight,
+                1,
+                500
+            );
+            camera.position.set(0, 0, 100);
+            camera.lookAt(0, 0, 0);
+            // 场景
+            var scene = new THREE.Scene();
+            // 材质
+            var material = new THREE.LineBasicMaterial({ color: 0x0000ff });
+            // 顶点
+            var geometry = new THREE.Geometry();
+            geometry.vertices.push(new THREE.Vector3(-10, 0, 0));
+            geometry.vertices.push(new THREE.Vector3(0, 10, 0));
+            geometry.vertices.push(new THREE.Vector3(10, 0, 0));
+            // 画线
+            var line = new THREE.Line(geometry, material);
+            // 添加到场景中
+            scene.add(line);
+            renderer.render(scene, camera);
+        </script>
+    </body>
+</html>
